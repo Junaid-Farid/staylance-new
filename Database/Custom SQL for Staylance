@@ -1,0 +1,40 @@
+CREATE TABLE IF NOT EXISTS `languages` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `created_at` datetime NOT NULL,
+    `updated_at` datetime NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `languages_lang` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `language_id` int(11) NOT NULL,
+    `language` varchar(6) NOT NULL,
+    `name` varchar(255) NOT NULL,
+    `short_name` varchar(255) NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY `language_id` (`language_id`),
+    KEY `language` (`language`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+ALTER TABLE `languages_lang`
+ADD CONSTRAINT `languages_lang_ibfk_1` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+CREATE TABLE IF NOT EXISTS `countries` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `created_at` datetime NOT NULL,
+    `updated_at` datetime NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `countries_lang` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `country_id` int(11) NOT NULL,
+    `language` varchar(6) NOT NULL,
+    `name` varchar(255) NOT NULL,
+    `short_name` varchar(255) NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY `country_id` (`country_id`),
+    KEY `language` (`language`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+ALTER TABLE `countries_lang`
+ADD CONSTRAINT `countries_lang_ibfk_1` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
